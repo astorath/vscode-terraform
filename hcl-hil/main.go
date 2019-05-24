@@ -2,21 +2,22 @@ package main
 
 import (
 	"github.com/gopherjs/gopherjs/js"
-	"github.com/hashicorp/hcl"
-	hclParser "github.com/hashicorp/hcl/hcl/parser"
-	hclToken "github.com/hashicorp/hcl/hcl/token"
+	json "github.com/hashicorp/hcl2/hcl/json"
+	hclParser "github.com/hashicorp/hcl2/hcl/hclsyntax"
+	// hclToken "github.com/hashicorp/hcl2/hcl/hclsyntax"
 	"github.com/hashicorp/hil"
 	"github.com/hashicorp/hil/ast"
 	"github.com/hashicorp/hil/parser"
 )
 
 type hclError struct {
-	Pos *hclToken.Pos
+	Pos *hclParser.Pos
 	Err string
 }
 
 func parseHcl(v string) (interface{}, *hclError) {
-	result, err := hcl.ParseString(v)
+	// hclParser.Parse(in)
+	result, err := json.ParseString(v)
 
 	if err != nil {
 		if pErr, ok := err.(*hclParser.PosError); ok {
